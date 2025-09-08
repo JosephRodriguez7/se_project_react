@@ -1,0 +1,23 @@
+.main__container {
+  max-width: 1360px;
+  margin: 40px auto;
+  padding: 0 40px 0 40px;
+}
+
+.main__text {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 34px;
+}
+
+.main__cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  /* verify if contents should be justified to center */
+  justify-content: center;
+  list-style: none;
+}

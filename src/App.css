@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "CabinetGrotesk";
+  src: url("../vendor/fonts/CabinetGrotesk-Regular.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.app {
+  font-family: "CabinetGrotesk", Arial, Helvetica, sans-serif;
+}
