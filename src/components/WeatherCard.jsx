@@ -6,7 +6,7 @@ function WeatherCard() {
     <>
       <section className="weather__card">
         <img src={WeatherImg} alt="weather" className="weather__card-image" />
-        <h3 className="weather__data">currentTemp</h3>
+        <h3 className="weather__data">75&deg;F</h3>
       </section>
     </>
   );

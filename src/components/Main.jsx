@@ -9,7 +9,7 @@ function Main({ clothingItems }) {
         <WeatherCard />
         <div className="main__container">
           <p className="main__text">
-            Today is currentTemp / You may want to wear:
+            Today is 75&deg;F / You may want to wear:
           </p>
           <ul className="main__cards-list">
             {clothingItems.map((item) => {

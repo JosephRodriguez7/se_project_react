@@ -25,4 +25,15 @@
   border: none;
   background: transparent;
   font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity ease 0.3s;
+}
+
+.header__add-clothes-btn:hover {
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.6;
 }

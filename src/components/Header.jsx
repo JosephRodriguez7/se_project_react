@@ -2,7 +2,7 @@ import "./blocks/header.css";
 import logo from "../assets/wtwr-logo.svg";
 import avatar from "../assets/avatar.svg";
 
-function Header() {
+function Header({ handleOpenAddClothesModal }) {
   const now = new Date();
 
   return (
@@ -21,7 +21,12 @@ function Header() {
           </p>
         </div>
         <div className="header__profile">
-          <button className="header__add-clothes-btn">+ Add clothes</button>
+          <button
+            className="header__add-clothes-btn"
+            onClick={handleOpenAddClothesModal}
+          >
+            + Add clothes
+          </button>
           <p className="header__username">Terrence Tegegne</p>
           <img className="header__avatar" alt="user avatar" src={avatar} />
         </div>

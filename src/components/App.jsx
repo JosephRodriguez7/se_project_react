@@ -9,14 +9,26 @@ import { defaultClothingItems } from "../utils/clothingItems";
 
 function App() {
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [activeModal, setActiveModal] = useState("");
+
+  function handleOpenAddClothesModal() {
+    setActiveModal("add-clothes-modal");
+  }
+
+  function handleCloseModal() {
+    setActiveModal("");
+  }
 
   return (
     <>
       <div className="app">
-        <Header />
+        <Header handleOpenAddClothesModal={handleOpenAddClothesModal} />
         <Main clothingItems={clothingItems} />
-        <ItemModal />
-        <ModalWithForm />
+        {/* <ItemModal /> */}
+        <ModalWithForm
+          isOpen={activeModal === "add-clothes-modal"}
+          handleCloseModal={handleCloseModal}
+        />
         <Footer />
       </div>
     </>
