@@ -14,7 +14,11 @@ function App() {
   const [isMobileMenuOpened, setHeaderMobile] = useState(false);
 
   function handleMobileMenu() {
-    setHeaderMobile("set-header-mobile");
+    setHeaderMobile((prev) => !prev);
+  }
+
+  function handleCloseMobileMenu() {
+    setHeaderMobile(false);
   }
 
   function handleOpenAddClothesModal() {
@@ -37,6 +41,7 @@ function App() {
           handleOpenAddClothesModal={handleOpenAddClothesModal}
           handleMobileMenu={handleMobileMenu}
           isMobileMenuOpened={isMobileMenuOpened}
+          handleCloseMobileMenu={handleCloseMobileMenu}
         />
         <Main
           clothingItems={clothingItems}

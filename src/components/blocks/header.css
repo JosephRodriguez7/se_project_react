@@ -52,19 +52,39 @@
   background-color: white;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin: 18px auto;
   padding-right: 16px;
   padding-left: 16px;
+  top: 16px;
+  right: 16px;
+  left: 16px;
 }
 
 .header__menu-is-opened {
-  display: none;
+  display: flex;
   z-index: 1000;
   position: absolute;
   flex-direction: column-reverse;
-  /* padding: 60px auto 60px; */
-  width: 80vw;
-  height: 208px;
+  width: 95vw;
+  height: 222px;
+  align-items: center;
+  gap: 31px;
+  padding: 0;
+}
+
+.header__menu-close-btn {
+  align-self: flex-end;
+  position: absolute;
+  filter: invert(1);
+  background: none;
+  border: none;
+  top: 11px;
+  right: 11px;
+}
+
+.header__user-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
 }
 
 .header__add-clothes-btn {
@@ -109,16 +129,28 @@
     display: block;
   }
 
+  .header__hamburger-btn-hidden {
+    display: none;
+  }
+
   .header__profile-mobile {
     display: flex;
     align-items: flex-start;
   }
 
+  .header__username {
+    margin: 0;
+    align-content: center;
+  }
+
   .header__menu {
-    display: flex;
+    /* display: flex; */
     flex-direction: column-reverse;
   }
 
   .header__menu-is-opened {
+    justify-content: center;
+    justify-self: center;
+    font-size: 20px;
   }
 }

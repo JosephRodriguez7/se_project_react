@@ -2,11 +2,13 @@ import "./blocks/header.css";
 import logo from "../assets/wtwr-logo.svg";
 import avatar from "../assets/avatar.svg";
 import hamburger from "../assets/hamburger-btn.svg";
+import closeBtn from "../assets/close-btn.svg";
 
 function Header({
   handleOpenAddClothesModal,
   handleMobileMenu,
   isMobileMenuOpened,
+  handleCloseMobileMenu,
 }) {
   const now = new Date();
 
@@ -41,7 +43,9 @@ function Header({
         {/* mobile header */}
         <div className="header__profile header__profile-mobile">
           <button
-            className="header__hamburger-btn"
+            className={`header__hamburger-btn${
+              isMobileMenuOpened ? " header__hamburger-btn-hidden " : ""
+            }`}
             onClick={handleMobileMenu}
             aria-label="Toggle menu"
           >
@@ -60,13 +64,21 @@ function Header({
           }`}
         >
           <button
+            className="header__menu-close-btn"
+            onClick={handleCloseMobileMenu}
+          >
+            <img src={closeBtn} alt="close button" />
+          </button>
+          <button
             className="header__add-clothes-btn"
             onClick={handleOpenAddClothesModal}
           >
             + Add clothes
           </button>
-          <p className="header__username">Terrence Tegegne</p>
-          <img className="header__avatar" alt="user avatar" src={avatar} />
+          <div className="header__user-wrapper">
+            <p className="header__username">Terrence Tegegne</p>
+            <img className="header__avatar" alt="user avatar" src={avatar} />
+          </div>
         </div>
       </header>
     </>
