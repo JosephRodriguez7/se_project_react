@@ -2,7 +2,7 @@ import "./blocks/main.css";
 import ItemCard from "./ItemCard";
 import WeatherCard from "./WeatherCard";
 
-function Main({ clothingItems }) {
+function Main({ clothingItems, handleOpenItemModal }) {
   return (
     <>
       <main className="main">
@@ -13,7 +13,13 @@ function Main({ clothingItems }) {
           </p>
           <ul className="main__cards-list">
             {clothingItems.map((item) => {
-              return <ItemCard key={item.id} data={item} />;
+              return (
+                <ItemCard
+                  key={item.id}
+                  data={item}
+                  handleOpenItemModal={handleOpenItemModal}
+                />
+              );
             })}
           </ul>
         </div>

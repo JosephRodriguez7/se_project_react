@@ -1,17 +1,18 @@
+import "./blocks/itemModal.css";
 import ItemCard from "./ItemCard";
 import closeBtn from "../assets/close-btn.svg";
 
-function ItemModal() {
+function ItemModal({ card, isOpen, handleCloseModal }) {
   return (
     <>
-      <div className="modal">
-        <div className="modal__card">
-          <button className="modal__close-btn">
+      <div className={`modal${isOpen ? " modal__is-opened " : ""}`}>
+        <div className="modal__item">
+          <button className="modal__item-close-btn" onClick={handleCloseModal}>
             <img src={closeBtn} alt="close button" />
           </button>
-          <img src={ItemCard.link} alt="" className="modal__card-img" />
-          <p className="modal__item-name">Cap</p>
-          <p className="modal__item-weather">Weather: hot</p>
+          <img src={card.link} alt="" className="modal__item-img" />
+          <p className="modal__item-name">{card.name}</p>
+          <p className="modal__item-weather">Weather: {card.weather}</p>
         </div>
       </div>
     </>

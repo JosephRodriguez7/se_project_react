@@ -1,4 +1,4 @@
-import closeBtn from "../assets/modal-close-btn.svg";
+import closeBtn from "../assets/close-btn.svg";
 import "./blocks/modalWithForm.css";
 
 function ModalWithForm({ isOpen, handleCloseModal, children, handleSubmit }) {
@@ -10,7 +10,7 @@ function ModalWithForm({ isOpen, handleCloseModal, children, handleSubmit }) {
             <img src={closeBtn} alt="close button" />
           </button>
           <form action="submit" className="modal__form">
-            <h3 className="modal__title">New Garment</h3>
+            <h3 className="modal__title">New garment</h3>
             <fieldset className="modal__fieldset">
               <label htmlFor="" className="modal__form-label">
                 Name
