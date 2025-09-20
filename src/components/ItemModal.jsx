@@ -1,4 +1,3 @@
-import "./blocks/itemModal.css";
 import ItemCard from "./ItemCard";
 import closeBtn from "../assets/close-btn.svg";
 

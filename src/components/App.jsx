@@ -1,17 +1,18 @@
-import { useState } from "react";
-import "../App.css";
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import ItemModal from "./ItemModal";
 import Main from "./Main";
 import ModalWithForm from "./ModalWithForm";
 import { defaultClothingItems } from "../utils/clothingItems";
+import { getCurrentWeatherData } from "../utils/weatherApi";
 
 function App() {
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [isMobileMenuOpened, setHeaderMobile] = useState(false);
+  const [weatherData, setWeatherData] = useState({});
 
   function handleMobileMenu() {
     setHeaderMobile((prev) => !prev);
@@ -34,6 +35,15 @@ function App() {
     setActiveModal("");
   }
 
+  useEffect(() => {
+    getCurrentWeatherData()
+      .then((data) => {
+        setWeatherData(data);
+        console.log(data);
+      })
+      .catch((err) => console.error("There has been an error", err));
+  }, []);
+
   return (
     <>
       <div className="app">
@@ -42,10 +52,12 @@ function App() {
           handleMobileMenu={handleMobileMenu}
           isMobileMenuOpened={isMobileMenuOpened}
           handleCloseMobileMenu={handleCloseMobileMenu}
+          weatherData={weatherData}
         />
         <Main
           clothingItems={clothingItems}
           handleOpenItemModal={handleOpenItemModal}
+          weatherData={weatherData}
         />
         <ItemModal
           card={selectedCard}

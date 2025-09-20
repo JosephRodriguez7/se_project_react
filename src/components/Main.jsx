@@ -1,4 +1,3 @@
-import "./blocks/main.css";
 import ItemCard from "./ItemCard";
 import WeatherCard from "./WeatherCard";
 
@@ -15,7 +14,7 @@ function Main({ clothingItems, handleOpenItemModal }) {
             {clothingItems.map((item) => {
               return (
                 <ItemCard
-                  key={item.id}
+                  key={item._id}
                   data={item}
                   handleOpenItemModal={handleOpenItemModal}
                 />

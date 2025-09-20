@@ -1,5 +1,4 @@
 import closeBtn from "../assets/close-btn.svg";
-import "./blocks/modalWithForm.css";
 
 function ModalWithForm({ isOpen, handleCloseModal, children, handleSubmit }) {
   return (

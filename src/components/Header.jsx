@@ -1,4 +1,3 @@
-import "./blocks/header.css";
 import logo from "../assets/wtwr-logo.svg";
 import avatar from "../assets/avatar.svg";
 import hamburger from "../assets/hamburger-btn.svg";
@@ -9,6 +8,7 @@ function Header({
   handleMobileMenu,
   isMobileMenuOpened,
   handleCloseMobileMenu,
+  weatherData,
 }) {
   const now = new Date();
 
@@ -24,7 +24,7 @@ function Header({
                 month: "long",
               })}
             </time>
-            , New York
+            , {weatherData.location}
           </p>
         </div>
 

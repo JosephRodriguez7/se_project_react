@@ -109,7 +109,13 @@
   opacity: 0.6;
 }
 
-@media screen and (max-width: 677px) {
+@media screen and (max-width: 777px) {
+  .header__profile {
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 700px) {
   .header__profile-desktop {
     display: none;
   }

@@ -1,5 +1,14 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
+@import url(./components/blocks/main.css);
+@import url(./components/blocks/footer.css);
+@import url(./components/blocks/ItemCard.css);
+@import url(./components/blocks/itemModal.css);
+@import url(./components/blocks/modalWithForm.css);
+@import url(./components/blocks/page.css);
+@import url(./components/blocks/weather.css);
+@import url(./components/blocks/header.css);
+@import url(App.css);
 
 body {
   background-color: rgba(243, 243, 243, 1);
