@@ -8,6 +8,7 @@
 @import url(./components/blocks/page.css);
 @import url(./components/blocks/weather.css);
 @import url(./components/blocks/header.css);
+@import url(./components/blocks/ToggleSwitch.css);
 @import url(App.css);
 
 body {

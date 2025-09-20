@@ -13,6 +13,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isMobileMenuOpened, setHeaderMobile] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   function handleMobileMenu() {
     setHeaderMobile((prev) => !prev);

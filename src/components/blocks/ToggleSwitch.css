@@ -1,0 +1,72 @@
+.header__toggle-container {
+  width: fit-content;
+  height: fit-content;
+}
+
+.header__toggle-button {
+  cursor: pointer;
+  border-radius: 20px;
+  border: 2px solid rgba(126, 126, 126, 1);
+  color: rgba(126, 126, 126, 1);
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 28px;
+  gap: 17px;
+  background-color: white;
+  transition: border 0.3s ease;
+  /* letter-spacing: 6px;
+  text-indent: 6px; */
+}
+
+.header__toggle-button:hover {
+  border-color: black;
+}
+
+.header__toggle-button:hover .header__toggle-text {
+  color: black;
+}
+
+.header__toggle-button::before {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  background-color: black;
+  border: 2px solid black;
+  content: "";
+  border-radius: 20px;
+  z-index: 999;
+  margin: 0;
+  right: 26px;
+  transition: 0.3s;
+}
+
+.header__toggle-checkbox {
+  display: none;
+}
+
+.header__toggle-checkbox:checked + .header__toggle-button::before {
+  transform: translateX(28px);
+}
+
+.header__toggle-text {
+  padding: 0;
+  margin: 0;
+  color: rgba(126, 126, 126, 1);
+  z-index: 1000;
+  transition: color 0.3s ease;
+}
+
+.header__toggle-checkbox:not(:checked)
+  + .header__toggle-button
+  .header__toggle-text.f {
+  color: white;
+}
+
+.header__toggle-checkbox:checked
+  + .header__toggle-button
+  .header__toggle-text.c {
+  color: white;
+}

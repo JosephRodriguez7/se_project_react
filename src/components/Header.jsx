@@ -2,6 +2,7 @@ import logo from "../assets/wtwr-logo.svg";
 import avatar from "../assets/avatar.svg";
 import hamburger from "../assets/hamburger-btn.svg";
 import closeBtn from "../assets/close-btn.svg";
+import ToggleSwitch from "./ToggleSwitch";
 
 function Header({
   handleOpenAddClothesModal,
@@ -30,6 +31,7 @@ function Header({
 
         {/* desktop header */}
         <div className="header__profile header__profile-desktop">
+          <ToggleSwitch />
           <button
             className="header__add-clothes-btn"
             onClick={handleOpenAddClothesModal}
