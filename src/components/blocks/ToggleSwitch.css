@@ -17,8 +17,6 @@
   gap: 17px;
   background-color: white;
   transition: border 0.3s ease;
-  /* letter-spacing: 6px;
-  text-indent: 6px; */
 }
 
 .header__toggle-button:hover {
