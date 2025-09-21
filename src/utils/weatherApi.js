@@ -28,10 +28,13 @@ export function getWeatherCondition(temperature) {
 }
 
 function parseWeatherData(data) {
-  const parsedData = {};
+  const parsedData = { location: {}, weather: {}, temperature: {} };
 
   parsedData.location = data.name;
-  parsedData.temperature = Math.round(data.main.temp);
+  parsedData.temperature.F = Math.round(data.main.temp);
+  parsedData.temperature.C = Math.round(
+    (parsedData.temperature.F - 32) * (5 / 9)
+  );
   parsedData.weather = data.weather[0].main;
 
   return parsedData;
