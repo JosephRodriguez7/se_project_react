@@ -17,15 +17,17 @@ function Main({ clothingItems, handleOpenItemModal, weatherData }) {
             {currentTemperatureUnit} / You may want to wear:
           </p>
           <ul className="main__cards-list">
-            {clothingItems.map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  data={item}
-                  handleOpenItemModal={handleOpenItemModal}
-                />
-              );
-            })}
+            {clothingItems
+              .filter((item) => item.weather === weatherData.condition)
+              .map((item) => {
+                return (
+                  <ItemCard
+                    key={item._id}
+                    data={item}
+                    handleOpenItemModal={handleOpenItemModal}
+                  />
+                );
+              })}
           </ul>
         </div>
       </main>

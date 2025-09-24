@@ -8,6 +8,9 @@ function WeatherCard({ weatherData }) {
 
   function getTimeOfDay(sunrise, sunset) {
     const now = Math.floor(Date.now() / 1000);
+    console.log(now);
+    console.log(sunset);
+    console.log(sunrise);
     return now >= sunrise && now < sunset ? "day" : "night";
   }
 
@@ -36,6 +39,7 @@ function WeatherCard({ weatherData }) {
   function getWeatherImage(condition, sunrise, sunset) {
     const name = standardizeWeatherConditions(condition);
     const timeOfDay = getTimeOfDay(sunrise, sunset);
+    console.log(timeOfDay);
     const match = weatherImages.find(
       (img) => img.name === name && img.time === timeOfDay
     );

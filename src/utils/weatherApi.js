@@ -36,6 +36,10 @@ function parseWeatherData(data) {
     (parsedData.temperature.F - 32) * (5 / 9)
   );
   parsedData.weather = data.weather[0].main;
+  parsedData.sunrise = data.sys.sunrise;
+  parsedData.sunset = data.sys.sunset;
+  parsedData.condition = getWeatherCondition(data.main.temp);
+  console.log("Weather temp feels: " + parsedData.condition);
 
   return parsedData;
 }
