@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import { defaultClothingItems } from "../utils/clothingItems";
+import { getCurrentWeatherData } from "../utils/weatherApi";
+import { Routes, Route } from "react-router-dom";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import ItemModal from "./ItemModal";
 import Main from "./Main";
-import ModalWithForm from "./ModalWithForm";
-import { defaultClothingItems } from "../utils/clothingItems";
-import { getCurrentWeatherData } from "../utils/weatherApi";
+// import ModalWithForm from "./ModalWithForm";
+import AddItemModal from "./AddItemModal";
+import Profile from "./Profile";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 
 function App() {
@@ -71,17 +75,35 @@ function App() {
             handleCloseMobileMenu={handleCloseMobileMenu}
             weatherData={weatherData}
           />
-          <Main
-            clothingItems={clothingItems}
-            handleOpenItemModal={handleOpenItemModal}
-            weatherData={weatherData}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  clothingItems={clothingItems}
+                  handleOpenItemModal={handleOpenItemModal}
+                  weatherData={weatherData}
+                />
+              }
+            ></Route>
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  clothingItems={clothingItems}
+                  handleOpenItemModal={handleOpenItemModal}
+                  handleCloseModal={handleCloseModal}
+                  handleOpenAddClothesModal={handleOpenAddClothesModal}
+                />
+              }
+            ></Route>
+          </Routes>
           <ItemModal
             card={selectedCard}
             isOpen={activeModal === "item-modal"}
             handleCloseModal={handleCloseModal}
           />
-          <ModalWithForm
+          <AddItemModal
             isOpen={activeModal === "add-clothes-modal"}
             handleCloseModal={handleCloseModal}
           />

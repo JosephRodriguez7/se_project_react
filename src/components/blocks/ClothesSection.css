@@ -1,0 +1,70 @@
+.clothes__section {
+  display: flex;
+  max-width: 1015px;
+  max-height: fit-content;
+  flex-direction: column;
+}
+
+.clothes__header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.clothes__title {
+  font-size: 20px;
+}
+
+.clothes__add-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.clothes__cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  /* verify if contents should be justified to center */
+  /* justify-content: center; */
+  list-style: none;
+}
+
+@media screen and (max-width: 1349px) {
+  .card {
+    max-width: 255px;
+    max-height: 255px;
+  }
+}
+
+@media screen and (max-width: 1135px) {
+  .card {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+@media screen and (max-width: 972px) {
+  .card {
+    max-width: 170px;
+    max-height: 170px;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .card {
+    max-width: 140px;
+    max-height: 140px;
+  }
+}
+
+@media screen and (max-width: 791px) {
+  .card {
+    max-width: 120px;
+    max-height: 120px;
+  }
+}

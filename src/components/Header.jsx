@@ -1,3 +1,6 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 import logo from "../assets/wtwr-logo.svg";
 import avatar from "../assets/avatar.svg";
 import hamburger from "../assets/hamburger-btn.svg";
@@ -17,7 +20,9 @@ function Header({
     <>
       <header className="header">
         <div className="header__container">
-          <img className="header__logo" alt="site logo" src={logo} />
+          <NavLink to="/" className="">
+            <img className="header__logo" alt="site logo" src={logo} />
+          </NavLink>
           <p className="header__data">
             <time className="header__datetime" dateTime={now}>
               {now.toLocaleDateString("default", {
@@ -38,8 +43,10 @@ function Header({
           >
             + Add clothes
           </button>
-          <p className="header__username">Terrence Tegegne</p>
-          <img className="header__avatar" alt="user avatar" src={avatar} />
+          <NavLink to="/profile" className="header__link">
+            <p className="header__username">Terrence Tegegne</p>
+            <img className="header__avatar" alt="user avatar" src={avatar} />
+          </NavLink>
         </div>
 
         {/* mobile header */}
