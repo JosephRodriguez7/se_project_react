@@ -9,6 +9,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "json-server": "json-server --watch db.json --id _id --port 3001",
     "deploy": "vite build && gh-pages -d dist -r git@github.com:JosephRodriguez7/se_project_react.git"
   },
   "dependencies": {

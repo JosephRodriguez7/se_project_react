@@ -1,5 +1,3 @@
-import "./blocks/ItemCard.css";
-
 function ItemCard({ data, handleOpenItemModal }) {
   function handleOpenCard() {
     handleOpenItemModal(data);
@@ -10,7 +8,7 @@ function ItemCard({ data, handleOpenItemModal }) {
       <li className="card">
         <p className="card__caption">{data.name}</p>
         <img
-          src={data.link}
+          src={data.imageUrl}
           alt={data.name}
           className="card__image"
           onClick={handleOpenCard}

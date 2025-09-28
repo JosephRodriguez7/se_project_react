@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { defaultClothingItems } from "../utils/clothingItems";
 import { getCurrentWeatherData } from "../utils/weatherApi";
+import { getItems, addItem, deleteItem } from "../utils/api";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./Header";
@@ -49,8 +50,36 @@ function App() {
     }
   }
 
+  function handleFormSubmit(evt, newItem) {
+    evt.preventDefault();
+    newItem.name = {};
+  }
+
+  function handleDeleteItem(item) {
+    deleteItem(item._id)
+      .then(() => {
+        setClothingItems((items) =>
+          items.filter((clothing) => clothing._id !== item._id)
+        );
+        handleCloseModal();
+      })
+      .catch(console.error);
+  }
+
+  function handleAddItemSubmit({ name, imageUrl, weather }) {
+    addItem({ name, imageUrl, weather })
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+      })
+      .catch(console.error);
+  }
+
   useEffect(() => {
-    setClothingItems(defaultClothingItems);
+    getItems()
+      .then((items) => {
+        setClothingItems(items);
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -102,10 +131,13 @@ function App() {
             card={selectedCard}
             isOpen={activeModal === "item-modal"}
             handleCloseModal={handleCloseModal}
+            handleDeleteItem={handleDeleteItem}
           />
           <AddItemModal
             isOpen={activeModal === "add-clothes-modal"}
             handleCloseModal={handleCloseModal}
+            handleFormSubmit={handleFormSubmit}
+            handleAddItemSubmit={handleAddItemSubmit}
           />
           <Footer />
         </div>
