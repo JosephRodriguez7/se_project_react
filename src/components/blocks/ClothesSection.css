@@ -1,6 +1,5 @@
 .clothes__section {
   display: flex;
-  max-width: 1015px;
   max-height: fit-content;
   flex-direction: column;
 }

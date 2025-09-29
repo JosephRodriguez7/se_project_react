@@ -1,7 +1,8 @@
 .main__container {
-  max-width: 1380px;
+  max-width: 1360px;
   margin: 40px auto;
   padding: 0 40px 0 40px;
+  text-align: center;
 }
 
 .main__text {
@@ -9,17 +10,18 @@
   font-size: 20px;
   margin-top: 0;
   margin-bottom: 34px;
+  text-align: left;
 }
 
 .main__cards-list {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 0;
-  margin: 0;
-  /* verify if contents should be justified to center */
-  justify-content: center;
+  margin: 0 auto;
+  justify-content: flex-start;
   list-style: none;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 511px) {

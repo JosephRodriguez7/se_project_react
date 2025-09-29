@@ -30,10 +30,13 @@
 
 .modal__item-close-btn {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   align-self: flex-end;
   margin: 24px 24px;
   border-style: none;
-  background: none;
+  background: rgba(0, 0, 0, 0.021);
   width: 20px;
   height: 20px;
   padding: 0;
@@ -87,6 +90,13 @@
   height: fit-content;
   width: fit-content;
   padding: 0;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal__item-del-btn:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 511px) {

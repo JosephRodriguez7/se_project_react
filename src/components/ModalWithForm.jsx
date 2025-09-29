@@ -8,7 +8,8 @@ function ModalWithForm({ isOpen, handleCloseModal, children, handleSubmit }) {
           <button className="modal__close-btn" onClick={handleCloseModal}>
             <img src={closeBtn} alt="close button" />
           </button>
-          <form className="modal__form" onSubmit={handleSubmit}>
+          {/* disable browser's default validation UI so we can show inline messages */}
+          <form className="modal__form" onSubmit={handleSubmit} noValidate>
             {children}
           </form>
         </div>
