@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import logo from "../assets/wtwr-logo.svg";
@@ -9,7 +9,12 @@ import ToggleSwitch from "./ToggleSwitch";
 
 function Header({
   handleOpenAddClothesModal,
+  handleOpenRegisterModal,
+  handleOpenLoginModal,
   handleMobileMenu,
+  handleLogin,
+  handleLogout,
+  isLoggedIn,
   isMobileMenuOpened,
   handleCloseMobileMenu,
   weatherData,
@@ -34,8 +39,29 @@ function Header({
           </p>
         </div>
 
+        <div
+          className={`header__account ${
+            isLoggedIn ? "header__account-hidden" : ""
+          }`}
+        >
+          <ToggleSwitch />
+          <button
+            className="header__signup-btn"
+            onClick={handleOpenRegisterModal}
+          >
+            Sign Up
+          </button>
+          <button className="header__login-btn" onClick={handleOpenLoginModal}>
+            Log In
+          </button>
+        </div>
+
         {/* desktop header */}
-        <div className="header__profile header__profile-desktop">
+        <div
+          className={`header__profile header__profile-desktop ${
+            !isLoggedIn ? "header__profile-hidden" : ""
+          }`}
+        >
           <ToggleSwitch />
           <button
             className="header__add-clothes-btn"
@@ -50,7 +76,7 @@ function Header({
         </div>
 
         {/* mobile header */}
-        <div className="header__profile header__profile-mobile">
+        <div className="header__profile header__profile-mobile header__profile-hidden">
           <button
             className={`header__hamburger-btn${
               isMobileMenuOpened ? " header__hamburger-btn-hidden " : ""

@@ -3,14 +3,17 @@ import { defaultClothingItems } from "../utils/clothingItems";
 import { getCurrentWeatherData } from "../utils/weatherApi";
 import { getItems, addItem, deleteItem } from "../utils/api";
 import { Routes, Route } from "react-router-dom";
+import { userRegistration, userLogin } from "../utils/auth";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import ItemModal from "./ItemModal";
 import Main from "./Main";
-// import ModalWithForm from "./ModalWithForm";
+import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
 import AddItemModal from "./AddItemModal";
 import Profile from "./Profile";
+import ProtectedRoute from "./ProtectedRoute";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 
 function App() {
@@ -18,11 +21,56 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [isMobileMenuOpened, setHeaderMobile] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   function handleMobileMenu() {
     setHeaderMobile((prev) => !prev);
+  }
+
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
+
+  function handleRegisterUser({ email, password, name, avatar }) {
+    userRegistration({ email, password, name, avatar })
+      .then((res) => {
+        console.log("User registered successfully", res);
+        return userLogin({ email, password });
+      })
+      .then((loginRes) => {
+        console.log("User logged in:", loginRes);
+        localStorage.setItem("jwt", loginRes.token);
+        setIsLoggedIn(true);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error("Registration or auto-login failed:", err);
+      });
+  }
+
+  function handleLoginUser({ email, password }) {
+    console.log("User logged in:", { email, password });
+    userLogin({ email, password })
+      .then((data) => {
+        console.log("User logged in:", data);
+        localStorage.setItem("jwt", data.token);
+        setIsLoggedIn(true);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error("Login failed", err);
+      });
+  }
+
+  function handleLogoutUser() {
+    console.log("User logged out");
+    setIsLoggedIn(false);
   }
 
   function handleCloseMobileMenu() {
@@ -31,6 +79,14 @@ function App() {
 
   function handleOpenAddClothesModal() {
     setActiveModal("add-clothes-modal");
+  }
+
+  function handleOpenLoginModal() {
+    setActiveModal("login-modal");
+  }
+
+  function handleOpenRegisterModal() {
+    setActiveModal("register-modal");
   }
 
   function handleOpenItemModal(card) {
@@ -101,7 +157,10 @@ function App() {
             handleOpenAddClothesModal={handleOpenAddClothesModal}
             handleMobileMenu={handleMobileMenu}
             isMobileMenuOpened={isMobileMenuOpened}
+            isLoggedIn={isLoggedIn}
             handleCloseMobileMenu={handleCloseMobileMenu}
+            handleOpenLoginModal={handleOpenLoginModal}
+            handleOpenRegisterModal={handleOpenRegisterModal}
             weatherData={weatherData}
           />
           <Routes>
@@ -118,12 +177,15 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  clothingItems={clothingItems}
-                  handleOpenItemModal={handleOpenItemModal}
-                  handleCloseModal={handleCloseModal}
-                  handleOpenAddClothesModal={handleOpenAddClothesModal}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    clothingItems={clothingItems}
+                    handleOpenItemModal={handleOpenItemModal}
+                    handleCloseModal={handleCloseModal}
+                    handleOpenAddClothesModal={handleOpenAddClothesModal}
+                    handleLogoutUser={handleLogoutUser}
+                  />
+                </ProtectedRoute>
               }
             ></Route>
           </Routes>
@@ -138,6 +200,18 @@ function App() {
             handleCloseModal={handleCloseModal}
             handleFormSubmit={handleFormSubmit}
             handleAddItemSubmit={handleAddItemSubmit}
+          />
+          <RegisterModal
+            isOpen={activeModal === "register-modal"}
+            handleCloseModal={handleCloseModal}
+            handleFormSubmit={handleFormSubmit}
+            handleRegisterUser={handleRegisterUser}
+          />
+          <LoginModal
+            isOpen={activeModal === "login-modal"}
+            handleCloseModal={handleCloseModal}
+            handleFormSubmit={handleFormSubmit}
+            handleLoginUser={handleLoginUser}
           />
           <Footer />
         </div>

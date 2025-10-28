@@ -12,6 +12,8 @@
 @import url(./components/blocks/profile.css);
 @import url(./components/blocks/SideBar.css);
 @import url(./components/blocks/ClothesSection.css);
+@import url(./components/blocks/RegisterModal.css);
+@import url(./components/blocks/LoginModal.css);
 @import url(App.css);
 
 body {

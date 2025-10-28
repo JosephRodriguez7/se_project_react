@@ -35,10 +35,25 @@
   display: inline-flex;
 }
 
+.header__account {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  display: inline-flex;
+}
+
+.header__account-hidden {
+  display: none;
+}
+
 .header__profile-mobile {
   display: flex;
   align-items: center;
   gap: 20px;
+  display: none;
+}
+
+.header__profile-hidden {
   display: none;
 }
 
@@ -110,6 +125,26 @@
   align-items: center;
   gap: 12px;
   text-align: center;
+}
+
+.header__signup-btn {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.header__login-btn {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .header__avatar {
