@@ -1,0 +1,11 @@
+.modal__save-btn {
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 4px;
+  align-self: self-start;
+  margin-top: 32px;
+  margin-bottom: 36px;
+  width: 128px;
+  height: 36px;
+}

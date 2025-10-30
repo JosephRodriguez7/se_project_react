@@ -17,7 +17,7 @@ function userRegistration({ email, password, name, avatar }) {
 }
 
 function userLogin({ email, password }) {
-  return fetch(`${baseUrl}/login`, {
+  return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,4 +26,14 @@ function userLogin({ email, password }) {
   }).then(checkResponse);
 }
 
-export { userLogin, userRegistration };
+function checkTokenValidity(token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+export { userLogin, userRegistration, checkTokenValidity };

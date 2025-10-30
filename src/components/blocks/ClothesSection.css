@@ -2,6 +2,7 @@
   display: flex;
   max-height: fit-content;
   flex-direction: column;
+  max-width: 1015px;
 }
 
 .clothes__header {
@@ -28,8 +29,6 @@
   gap: 20px;
   padding: 0;
   margin: 0;
-  /* verify if contents should be justified to center */
-  /* justify-content: center; */
   list-style: none;
 }
 

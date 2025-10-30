@@ -3,9 +3,16 @@ import { useContext } from "react";
 import ItemCard from "./ItemCard";
 import WeatherCard from "./WeatherCard";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Main({ clothingItems, handleOpenItemModal, weatherData }) {
+function Main({
+  clothingItems,
+  defaultClothingItems,
+  handleOpenItemModal,
+  weatherData,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <>

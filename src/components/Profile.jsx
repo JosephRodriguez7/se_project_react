@@ -9,11 +9,15 @@ function Profile({
   handleOpenItemModal,
   handleOpenAddClothesModal,
   handleLogoutUser,
+  handleOpenEditUserModal,
 }) {
   return (
     <>
       <main className="profile">
-        <SideBar handleLogoutUser={handleLogoutUser} />
+        <SideBar
+          handleLogoutUser={handleLogoutUser}
+          handleOpenEditUserModal={handleOpenEditUserModal}
+        />
         <ClothesSection
           clothingItems={clothingItems}
           handleOpenItemModal={handleOpenItemModal}

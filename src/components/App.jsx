@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { defaultClothingItems } from "../utils/clothingItems";
 import { getCurrentWeatherData } from "../utils/weatherApi";
-import { getItems, addItem, deleteItem } from "../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  likeItem,
+  updateUser,
+} from "../utils/api";
 import { Routes, Route } from "react-router-dom";
-import { userRegistration, userLogin } from "../utils/auth";
+import { userRegistration, userLogin, checkTokenValidity } from "../utils/auth";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -12,9 +18,11 @@ import Main from "./Main";
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import AddItemModal from "./AddItemModal";
+import UpdateUserModal from "./UpdateUserModal";
 import Profile from "./Profile";
 import ProtectedRoute from "./ProtectedRoute";
 import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -24,6 +32,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [isTokenValid, setTokenValidity] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   function handleMobileMenu() {
     setHeaderMobile((prev) => !prev);
@@ -36,6 +46,8 @@ function App() {
   function handleLogout() {
     setIsLoggedIn(false);
   }
+
+  // function handleUserState
 
   function handleRegisterUser({ email, password, name, avatar }) {
     userRegistration({ email, password, name, avatar })
@@ -57,9 +69,9 @@ function App() {
   function handleLoginUser({ email, password }) {
     console.log("User logged in:", { email, password });
     userLogin({ email, password })
-      .then((data) => {
-        console.log("User logged in:", data);
-        localStorage.setItem("jwt", data.token);
+      .then((loginRes) => {
+        console.log("User logged in:", loginRes);
+        localStorage.setItem("jwt", loginRes.token);
         setIsLoggedIn(true);
         handleCloseModal();
       })
@@ -70,6 +82,7 @@ function App() {
 
   function handleLogoutUser() {
     console.log("User logged out");
+    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
   }
 
@@ -87,6 +100,10 @@ function App() {
 
   function handleOpenRegisterModal() {
     setActiveModal("register-modal");
+  }
+
+  function handleOpenEditUserModal() {
+    setActiveModal("edit-user-modal");
   }
 
   function handleOpenItemModal(card) {
@@ -112,7 +129,8 @@ function App() {
   }
 
   function handleDeleteItem(item) {
-    deleteItem(item._id)
+    const token = localStorage.getItem("jwt");
+    deleteItem(item._id, token)
       .then(() => {
         setClothingItems((items) =>
           items.filter((clothing) => clothing._id !== item._id)
@@ -122,13 +140,57 @@ function App() {
       .catch(console.error);
   }
 
+  function handleLikeItem(item) {
+    const token = localStorage.getItem("jwt");
+    likeItem({ card: item._id, token })
+      .then((updatedItem) => {
+        setClothingItems((items) =>
+          items.map((currentItem) =>
+            currentItem._id === item._id ? updatedItem : currentItem
+          )
+        );
+      })
+      .catch(console.error);
+  }
+
+  function handleUpdateUser(userData) {
+    const token = localStorage.getItem("jwt");
+    updateUser(userData, token)
+      .then((updatedUserData) => {
+        setCurrentUser(updatedUserData);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error("Failed to update user:", err);
+      });
+  }
+
   function handleAddItemSubmit({ name, imageUrl, weather }) {
-    addItem({ name, imageUrl, weather })
+    const token = localStorage.getItem("jwt");
+    addItem({ name, imageUrl, weather, token })
       .then((newItem) => {
         setClothingItems([newItem, ...clothingItems]);
       })
       .catch(console.error);
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+
+    if (token) {
+      console.log(token);
+      checkTokenValidity(token)
+        .then((userData) => {
+          console.log(userData);
+          setCurrentUser(userData);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          localStorage.removeItem("jwt");
+          console.error("Token invalid or expired:", err);
+        });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     getItems()
@@ -152,69 +214,80 @@ function App() {
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleTempUnitChange }}
       >
-        <div className="app">
-          <Header
-            handleOpenAddClothesModal={handleOpenAddClothesModal}
-            handleMobileMenu={handleMobileMenu}
-            isMobileMenuOpened={isMobileMenuOpened}
-            isLoggedIn={isLoggedIn}
-            handleCloseMobileMenu={handleCloseMobileMenu}
-            handleOpenLoginModal={handleOpenLoginModal}
-            handleOpenRegisterModal={handleOpenRegisterModal}
-            weatherData={weatherData}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  clothingItems={clothingItems}
-                  handleOpenItemModal={handleOpenItemModal}
-                  weatherData={weatherData}
-                />
-              }
-            ></Route>
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
+        <CurrentUserContext.Provider value={{ currentUser }}>
+          <div className="app">
+            <Header
+              handleOpenAddClothesModal={handleOpenAddClothesModal}
+              handleMobileMenu={handleMobileMenu}
+              isMobileMenuOpened={isMobileMenuOpened}
+              isLoggedIn={isLoggedIn}
+              handleCloseMobileMenu={handleCloseMobileMenu}
+              handleOpenLoginModal={handleOpenLoginModal}
+              handleOpenRegisterModal={handleOpenRegisterModal}
+              weatherData={weatherData}
+            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
                     clothingItems={clothingItems}
+                    defaultClothingItems={defaultClothingItems}
                     handleOpenItemModal={handleOpenItemModal}
-                    handleCloseModal={handleCloseModal}
-                    handleOpenAddClothesModal={handleOpenAddClothesModal}
-                    handleLogoutUser={handleLogoutUser}
+                    weatherData={weatherData}
                   />
-                </ProtectedRoute>
-              }
-            ></Route>
-          </Routes>
-          <ItemModal
-            card={selectedCard}
-            isOpen={activeModal === "item-modal"}
-            handleCloseModal={handleCloseModal}
-            handleDeleteItem={handleDeleteItem}
-          />
-          <AddItemModal
-            isOpen={activeModal === "add-clothes-modal"}
-            handleCloseModal={handleCloseModal}
-            handleFormSubmit={handleFormSubmit}
-            handleAddItemSubmit={handleAddItemSubmit}
-          />
-          <RegisterModal
-            isOpen={activeModal === "register-modal"}
-            handleCloseModal={handleCloseModal}
-            handleFormSubmit={handleFormSubmit}
-            handleRegisterUser={handleRegisterUser}
-          />
-          <LoginModal
-            isOpen={activeModal === "login-modal"}
-            handleCloseModal={handleCloseModal}
-            handleFormSubmit={handleFormSubmit}
-            handleLoginUser={handleLoginUser}
-          />
-          <Footer />
-        </div>
+                }
+              ></Route>
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      clothingItems={clothingItems}
+                      defaultClothingItems={defaultClothingItems}
+                      handleOpenItemModal={handleOpenItemModal}
+                      handleCloseModal={handleCloseModal}
+                      handleOpenAddClothesModal={handleOpenAddClothesModal}
+                      handleLogoutUser={handleLogoutUser}
+                      handleOpenEditUserModal={handleOpenEditUserModal}
+                    />
+                  </ProtectedRoute>
+                }
+              ></Route>
+            </Routes>
+            <ItemModal
+              card={selectedCard}
+              isOpen={activeModal === "item-modal"}
+              handleCloseModal={handleCloseModal}
+              handleDeleteItem={handleDeleteItem}
+            />
+            <AddItemModal
+              isOpen={activeModal === "add-clothes-modal"}
+              handleCloseModal={handleCloseModal}
+              handleFormSubmit={handleFormSubmit}
+              handleAddItemSubmit={handleAddItemSubmit}
+            />
+            <RegisterModal
+              isOpen={activeModal === "register-modal"}
+              handleCloseModal={handleCloseModal}
+              handleFormSubmit={handleFormSubmit}
+              handleRegisterUser={handleRegisterUser}
+            />
+            <LoginModal
+              isOpen={activeModal === "login-modal"}
+              handleCloseModal={handleCloseModal}
+              handleFormSubmit={handleFormSubmit}
+              handleLoginUser={handleLoginUser}
+            />
+            <UpdateUserModal
+              isOpen={activeModal === "edit-user-modal"}
+              handleCloseModal={handleCloseModal}
+              handleFormSubmit={handleFormSubmit}
+              handleUpdateUser={handleUpdateUser}
+            />
+            <Footer />
+          </div>
+        </CurrentUserContext.Provider>
       </CurrentTemperatureUnitContext.Provider>
     </>
   );
