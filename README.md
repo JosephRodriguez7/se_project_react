@@ -4,7 +4,7 @@ This is the frontend for the WTWR (What To Wear) application. It's a Vite + Reac
 
 ### The backend repo can be found here:
 
-[text](https://github.com/JosephRodriguez7/se_project_express)
+[link to backend](https://github.com/JosephRodriguez7/se_project_express)
 
 ## Features
 
