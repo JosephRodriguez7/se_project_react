@@ -26,6 +26,14 @@
 .header__username {
   margin: 0;
   text-overflow: ellipsis;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity ease 0.3s;
+  padding: 0;
+}
+
+.header__username:hover {
+  opacity: 0.6;
 }
 
 .header__profile-desktop {
@@ -176,6 +184,18 @@
   .header__profile {
     gap: 12px;
   }
+
+  .header__signup-btn {
+    font-size: 16px;
+  }
+
+  .header__login-btn {
+    font-size: 16px;
+  }
+
+  .header__account {
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 718px) {
@@ -231,5 +251,15 @@
     justify-content: center;
     justify-self: center;
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 384px) {
+  .header__login-btn {
+    font-size: 14px;
+  }
+
+  .header__signup-btn {
+    font-size: 14px;
   }
 }

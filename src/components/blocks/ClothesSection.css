@@ -21,6 +21,12 @@
   font-size: 20px;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.clothes__add-btn:hover {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .clothes__cards-list {
@@ -51,6 +57,10 @@
     max-width: 170px;
     max-height: 170px;
   }
+
+  .clothes__cards-list {
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 880px) {
@@ -64,5 +74,15 @@
   .card {
     max-width: 120px;
     max-height: 120px;
+  }
+
+  .clothes__header {
+    scale: 0.8;
+  }
+}
+
+@media screen and (max-width: 448px) {
+  .clothes__add-btn {
+    padding: 0;
   }
 }
