@@ -1,6 +1,6 @@
 {
   "name": "se_project_react",
-  "homepage": "https://JosephRodriguez7.github.io/se_project_react",
+  "homepage": "http://what2wear.ignorelist.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "json-server": "json-server --watch db.json --id _id --port 3001",
-    "deploy": "vite build && gh-pages -d dist -r git@github.com:JosephRodriguez7/se_project_react.git"
+    "deploy": "npm run build && scp -r ./dist/* jarp1195@what2wear.ignorelist.com:/home/jarp1195/frontend"
   },
   "dependencies": {
     "react": "^18.3.1",
