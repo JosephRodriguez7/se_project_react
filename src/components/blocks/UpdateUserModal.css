@@ -1,6 +1,6 @@
 .modal__save-btn {
   color: white;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 1);
   border: none;
   border-radius: 4px;
   align-self: self-start;
@@ -8,4 +8,11 @@
   margin-bottom: 36px;
   width: 128px;
   height: 36px;
+  cursor: pointer;
+
+  transition: background-color 0.5s ease;
+}
+
+.modal__save-btn:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
